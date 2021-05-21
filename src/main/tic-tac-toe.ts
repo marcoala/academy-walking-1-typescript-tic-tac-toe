@@ -1,17 +1,22 @@
-enum Move {
-    X ,
+export enum Move {
+    X,
     O,
 }
 
 export class Game {
-    currentMove = null;
+    currentMove: Move|null = null;
 
-    validateMove(input: string) {
-        if (input === 'X' && this.currentMove === null) {
+    validateMove(input: Move) {
+        if (input === Move.X && this.currentMove === null) {
+            this.currentMove = input;
             return true;
         }
-        if (input === 'O' && this.currentMove === null) {
+        if (input === Move.O && this.currentMove === null) {
             return false;
+        }
+        if (input !== this.currentMove) {
+            this.currentMove = input;
+            return true;
         }
         return false;
     }
