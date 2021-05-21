@@ -1,23 +1,50 @@
-export enum Move {
-    X,
-    O,
+export enum Player {
+    X = "X",
+    O = "O",
 }
 
-export class Game {
-    currentMove: Move|null = null;
+export enum Move {
+    tl = 0,
+    tm,
+    tr,
+    ml,
+    mm,
+    mr,
+    ll,
+    lm,
+    lr
+}
 
-    validateMove(input: Move) {
-        if (input === Move.X && this.currentMove === null) {
-            this.currentMove = input;
+
+export class Game {
+    currentPlayer: Player = Player.X
+
+    board: Player[]|null[] = [null, null, null ,null, null, null, null ,null, null];
+
+    move(input: Move) {
+        this.validateMove(this.currentPlayer)
+        console.log(this.board)
+        if (this.board[input] !== null) {
+            return false
+        }
+        this.board[input] = this.currentPlayer
+        return true
+    }
+
+
+    validateMove(input: Player) {
+        if (input === Player.X && this.currentPlayer === null) {
+            this.currentPlayer = input;
             return true;
         }
-        if (input === Move.O && this.currentMove === null) {
+        if (input === Player.O && this.currentPlayer === null) {
             return false;
         }
-        if (input !== this.currentMove) {
-            this.currentMove = input;
+        if (input !== this.currentPlayer) {
+            this.currentPlayer = input;
             return true;
         }
         return false;
     }
 }
+
